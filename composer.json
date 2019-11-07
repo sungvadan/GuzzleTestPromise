@@ -1,0 +1,19 @@
+{
+    "name": "vtp/guzzle-test-promise",
+    "description": "Test async with guzzle",
+    "require": {
+        "guzzlehttp/guzzle": "^6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "App\\Tests\\" : "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Van Truong PHAN",
+            "email": "svd.phan@gmail.com"
+        }
+    ]
+}

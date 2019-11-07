@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  nginx:
+    build:
+      context: ./docker/nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./:/var/www:ro
+    links:
+      - php
+  db:
+    image: postgres:10.6
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: root
+      POSTGRES_DB: test
+    volumes:
+      - ./.data:/var/lib/postgresql/data
+  php:
+    build:
+      context: ./docker/php
+      args:
+        - UID=${uid}
+        - GID=${gid}
+    expose:
+      - "9000"
+    volumes:
+      - ./:/var/www:cached
+      - ~/.ssh:/root/.ssh
+    links:
+      - db
